@@ -2,13 +2,15 @@ package com.james;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
 
         HashMap<String, ArrayList<Country>> countryMap = new HashMap<>();
 
@@ -31,6 +33,8 @@ public class Main {
         ArrayList<Country> newList = countryMap.get(firstLetter);
         System.out.println(newList.toString());
 
+        saveFile(firstLetter, countryMap);
+
     }
 
     public static String getLetter() {
@@ -46,5 +50,11 @@ public class Main {
         }
     }
 
+    public static void saveFile(String getLetter, HashMap<String, ArrayList<Country>> countryMap) throws IOException {
 
+        File f = new File(getLetter + "_countries.txt");
+        FileWriter fw = new FileWriter(f);
+        fw.write(countryMap.get(getLetter).toString());
+        fw.close();
+    }
 }
